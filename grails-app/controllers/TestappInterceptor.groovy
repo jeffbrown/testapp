@@ -4,10 +4,12 @@
 import javax.servlet.http.HttpServletResponse
 
 class TestappInterceptor{
-	
+
 	int order = HIGHEST_PRECEDENCE + 999
 
     String entrypoint = "api_v0.1"
+
+    def apiResponseService
 
     def TestappInterceptor() {
 
@@ -35,4 +37,3 @@ class TestappInterceptor{
 	   return false
 	}
 }
-
