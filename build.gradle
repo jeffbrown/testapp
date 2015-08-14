@@ -5,7 +5,7 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven { url "https://repo.grails.org/grails/core/3.0.5.BUILD-SNAPSHOT" }
+        maven { url "https://repo.grails.org/grails/core" }
 
     }
     dependencies {
@@ -43,7 +43,7 @@ assets {
 
 repositories {
     mavenLocal()
-    maven { url "https://repo.grails.org/grails/core/3.0.5.BUILD-SNAPSHOT" }
+    maven { url "https://repo.grails.org/grails/core" }
 }
 
 dependencyManagement {
