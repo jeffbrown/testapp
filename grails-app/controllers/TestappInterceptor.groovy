@@ -6,7 +6,7 @@ class TestappInterceptor{
 
     // Test with URI; less common usage case
     def TestappInterceptor() {
-        match(controller:/^(\/${entrypoint}\/*(.+))$/)
+        match uri: "/$entrypoint/**"
     }
 
 	boolean before(){
