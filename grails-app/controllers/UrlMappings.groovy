@@ -1,7 +1,17 @@
+
+import org.springframework.beans.factory.annotation.Value
+
 class UrlMappings {
 
+    @Value('${info.app.name}')
+    String apiName
+    @Value('${info.app.version}')
+    String apiVersion
+
+    String entrypoint = (apiName)?"${apiName}_v${apiVersion}":"v${apiVersion}"
+
     static mappings = {
-        "/api_v0.1/$controller/$action?/$id?(.$format)?"{
+        "/${entrypoint}/$controller/$action?/$id?(.$format)?"{
             controller = controller
             action = action
             parseRequest = true

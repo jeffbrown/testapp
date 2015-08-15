@@ -1,18 +1,11 @@
-import org.springframework.beans.factory.annotation.Value
+import javax.servlet.http.HttpServletResponse
 
 class TestappInterceptor{
 
-    @Value('${info.app.name}')
-    String apiName
-    @Value('${info.app.version}')
-    String apiVersion
-
-
-
     // Test with URI; less common usage case
     def TestappInterceptor() {
-        String entrypoint = (apiName)?"${apiName}_v${apiVersion}":"v${apiVersion}"
-        match(uri:"/${entrypoint}/**")
+        String entrypoint = "api_v0.1"
+        match uri: "/$entrypoint/**"
     }
 
 	boolean before(){
