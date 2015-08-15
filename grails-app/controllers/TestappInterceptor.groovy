@@ -4,7 +4,9 @@ class TestappInterceptor{
 
     // Test with URI; less common usage case
     def TestappInterceptor() {
+
         String entrypoint = "api_v0.1"
+
         match uri: "/$entrypoint/**"
     }
 
