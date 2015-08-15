@@ -5,7 +5,7 @@ grails:
         defaultPackage: testapp
 info:
     app:
-        name: '@info.app.name@'
+        name: 'api'
         version: '@info.app.version@'
         grailsVersion: '@info.app.grailsVersion@'
 spring:
