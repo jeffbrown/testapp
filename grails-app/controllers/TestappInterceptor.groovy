@@ -17,7 +17,11 @@ class TestappInterceptor{
 
 	boolean after(){
         println("### AFTER")
-            render(text:model, contentType:"text/json", encoding:"UTF-8")
+        try {
+            render(text: model, contentType: "text/json", encoding: "UTF-8")
+        }catch(Exception e){
+            println("#### AFTER exception : "+e)
+        }
 	    return false
 	}
 }

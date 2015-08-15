@@ -11,7 +11,7 @@ class UrlMappings {
     String entrypoint = (apiName)?"${apiName}_v${apiVersion}":"v${apiVersion}"
 
     static mappings = {
-        "/${entrypoint}/$controller/$action?/$id?(.$format)?"{
+        "/$entrypoint/$controller/$action?/$id?(.$format)?"{
             controller = controller
             action = action
             parseRequest = true

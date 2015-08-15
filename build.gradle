@@ -55,6 +55,14 @@ dependencyManagement {
     applyMavenExclusions false
 }
 
+run {
+    systemProperties = System.properties
+}
+
+test {
+    systemProperties = System.properties
+}
+
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-logging"
     provided "org.springframework.boot:spring-boot-starter-actuator"

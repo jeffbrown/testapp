@@ -6,7 +6,7 @@ grails:
 info:
     app:
         name: 'api'
-        version: '@info.app.version@'
+        version: '0.1'
         grailsVersion: '@info.app.grailsVersion@'
 spring:
     groovy:
