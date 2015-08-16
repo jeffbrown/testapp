@@ -1,16 +1,13 @@
-
-import org.springframework.beans.factory.annotation.Value
+import grails.util.Metadata
 
 class UrlMappings {
 
-    @Value('${info.app.name}')
-    String apiName
-    @Value('${info.app.version}')
-    String apiVersion
-
     static mappings = {
-        String entrypoint = (apiName)?"${apiName}_v${apiVersion}":"v${apiVersion}"
-        "/$entrypoint/$controller/$action?/$id?(.$format)?"{
+        def apiName = Metadata.current.getApplicationName()
+        def apiVersion = Metadata.current.getApplicationVersion()
+        def entryPoint = (apiName)?"${apiName}_v${apiVersion}":"v${apiVersion}"
+
+        "/${entryPoint}/$controller/$action?/$id?(.$format)?"{
         }
     }
 }
