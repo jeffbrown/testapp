@@ -5,7 +5,7 @@ class TestappInterceptor{
     // Test with URI; less common usage case
     def TestappInterceptor() {
 
-        String entrypoint = "api_v0.1"
+        String entrypoint = "testapp2_v0.1"
 
         match uri: "/$entrypoint/**"
         //matchAll().excludes(controller:"login")
@@ -22,7 +22,7 @@ class TestappInterceptor{
             if(params.id>0){
                 println("model : ${model}")
                 def newId = params.id-1
-                redirect(controller:params.controller,action:params.action,id:params.id)
+                redirect(controller:params.controller,action:params.action,id:newId)
             }else{
                 render(text:model, contentType:"text/json", encoding:"UTF-8")
             }
