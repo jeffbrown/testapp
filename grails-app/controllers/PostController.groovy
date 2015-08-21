@@ -2,7 +2,7 @@
 class PostController {
 
 	def show(){
-        println("#### made it to post/show")
+        println("PostController:show")
         ['fname':'Bob']
 	}
 }

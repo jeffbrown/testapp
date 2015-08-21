@@ -8,16 +8,16 @@ class TestappInterceptor{
         String entrypoint = "testapp2_v0.1"
 
         match uri: "/$entrypoint/**"
-        //matchAll().excludes(controller:"login")
+
     }
 
 	boolean before(){
-        println("### BEFORE")
+        println("TestappInterceptor:Before")
             return true
 	}
 
 	boolean after(){
-        println("### AFTER")
+        println("TestappInterceptor:After")
         try {
             if(params.id>0){
                 println("model : ${model}")
