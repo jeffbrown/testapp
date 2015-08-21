@@ -2,7 +2,10 @@
 class PostController {
 
 	def show(){
-        println("#### made it to post/show")
-        ['fname':'Bob']
+        [fname: 'Bob']
 	}
+
+    def sayHello(String message) {
+        render "The sayHello action was invoked.  Message: $message"
+    }
 }
