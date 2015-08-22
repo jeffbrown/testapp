@@ -12,17 +12,18 @@ class TestappInterceptor implements GrailsConfigurationAware {
     String entryPoint
 
     void setConfiguration(Config cfg) {
-        this.apiName = cfg.apitoolkit.apiName
-        this.apiVersion = cfg.info.app.version
+        apiName = cfg.info.app.name
+        apiVersion = cfg.info.app.version
 
-        this.apinameEntrypoint = "${this.apiName}_v${this.apiVersion}"
-        this.versionEntrypoint = "v${this.apiVersion}"
-        this.entryPoint = (this.apiName)?this.apinameEntrypoint:this.versionEntrypoint
-
+        apinameEntrypoint = "${apiName}_v${apiVersion}"
+        versionEntrypoint = "v${apiVersion}"
+        entryPoint = (apiName)?apinameEntrypoint:versionEntrypoint
+        println("")
         match(uri:"/${entryPoint}/**")
     }
 
     boolean before() {
+        println("### BEFORE")
         // ignore requests to the message controller.
         // there are better ways to handle this in
         // a real app but I want to leave the interceptor
@@ -38,6 +39,7 @@ class TestappInterceptor implements GrailsConfigurationAware {
     }
 
     boolean after() {
+        println("### AFTER")
         // ignore requests to the message controller.
         // there are better ways to handle this in
         // a real app but I want to leave the interceptor
@@ -45,7 +47,7 @@ class TestappInterceptor implements GrailsConfigurationAware {
         // that has introduced other questions so I
         // want to eliminate that part of the confusion.
         if(params.controller == 'message') {
-            return true
+            false
         }
 
         addMessage 'afterInterceptor'
@@ -56,8 +58,10 @@ class TestappInterceptor implements GrailsConfigurationAware {
             def newId = idValue - 1
             addMessage 'redirect'
             redirect(controller: params.controller, action: params.action, id: newId)
+            false
         } else {
             render 'rendered by TestappInterceptor.after'
+            false
         }
         false
     }
