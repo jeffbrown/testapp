@@ -1,27 +1,47 @@
-class TestappInterceptor {
+import grails.core.support.GrailsConfigurationAware
+import grails.config.Config
 
-    def TestappInterceptor() {
-        String entrypoint = "testapp_v0.1"
+class TestappInterceptor implements GrailsConfigurationAware {
 
-        match uri: "/$entrypoint/post/**"
+    String apiName
+    String apiVersion
+
+    String apinameEntrypoint
+    String versionEntrypoint
+    String entryPoint
+
+    void setConfiguration(Config cfg) {
+        this.apiName = cfg.apitoolkit.apiName
+        this.apiVersion = cfg.info.app.version
+
+        this.apinameEntrypoint = "${this.apiName}_v${this.apiVersion}"
+        this.versionEntrypoint = "v${this.apiVersion}"
+        this.entryPoint = (this.apiName)?this.apinameEntrypoint:this.versionEntrypoint
+
+        match(uri:"/${entryPoint}/**")
     }
 
     boolean before() {
-        addMessage 'beforeInterceptor'
+        if(params.controller!='message') {
+            addMessage 'beforeInterceptor'
+        }
+
         true
     }
 
     boolean after() {
-        addMessage 'afterInterceptor'
-        int idValue = params.int('id')
-        addMessage("id is $idValue")
-        if (idValue > 0) {
-            addMessage "model : ${model}"
-            def newId = idValue - 1
-            addMessage 'redirect'
-            redirect(controller: params.controller, action: params.action, id: newId)
-        } else {
-            render 'rendered by TestappInterceptor.after'
+        if(params.controller!='message') {
+            addMessage 'afterInterceptor'
+            int idValue = params.int('id')
+            addMessage("id is $idValue")
+            if (idValue > 0) {
+                addMessage "model : ${model}"
+                def newId = idValue - 1
+                addMessage 'redirect'
+                redirect(controller: params.controller, action: params.action, id: newId)
+            } else {
+                render 'rendered by TestappInterceptor.after'
+            }
         }
         false
     }
