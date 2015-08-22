@@ -3,15 +3,35 @@ class TestappInterceptor {
     def TestappInterceptor() {
         String entrypoint = "testapp_v0.1"
 
-        match uri: "/$entrypoint/post/**"
+        match uri: "/$entrypoint/**"
     }
 
     boolean before() {
+        // ignore requests to the message controller.
+        // there are better ways to handle this in
+        // a real app but I want to leave the interceptor
+        // using the original uri match because changing
+        // that has introduced other questions so I
+        // want to eliminate that part of the confusion.
+        if(params.controller == 'message') {
+            return true
+        }
+
         addMessage 'beforeInterceptor'
         true
     }
 
     boolean after() {
+        // ignore requests to the message controller.
+        // there are better ways to handle this in
+        // a real app but I want to leave the interceptor
+        // using the original uri match because changing
+        // that has introduced other questions so I
+        // want to eliminate that part of the confusion.
+        if(params.controller == 'message') {
+            return true
+        }
+
         addMessage 'afterInterceptor'
         int idValue = params.int('id')
         addMessage("id is $idValue")
