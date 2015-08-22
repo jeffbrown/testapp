@@ -1,34 +1,36 @@
-import javax.servlet.http.HttpServletResponse
+class TestappInterceptor {
 
-class TestappInterceptor{
-
-    // Test with URI; less common usage case
     def TestappInterceptor() {
+        String entrypoint = "testapp_v0.1"
 
-        String entrypoint = "testapp2_v0.1"
-
-        match uri: "/$entrypoint/**"
-
+        match uri: "/$entrypoint/post/**"
     }
 
-	boolean before(){
-        println("TestappInterceptor:Before")
-            return true
-	}
+    boolean before() {
+        addMessage 'beforeInterceptor'
+        true
+    }
 
-	boolean after(){
-        println("TestappInterceptor:After")
-        try {
-            if(params.id>0){
-                println("model : ${model}")
-                def newId = params.id-1
-                redirect(controller:params.controller,action:params.action,id:newId)
-            }else{
-                render(text:model, contentType:"text/json", encoding:"UTF-8")
-            }
-        }catch(Exception e){
-            println("#### AFTER exception : "+e)
+    boolean after() {
+        addMessage 'afterInterceptor'
+        int idValue = params.int('id')
+        addMessage("id is $idValue")
+        if (idValue > 0) {
+            addMessage "model : ${model}"
+            def newId = idValue - 1
+            addMessage 'redirect'
+            redirect(controller: params.controller, action: params.action, id: newId)
+        } else {
+            render 'rendered by TestappInterceptor.after'
         }
-	    return false
-	}
+        false
+    }
+
+    // appends msg to session.message
+    // NOTE: there is no good reason to do this sort of thing
+    // in a real app, but it is 1 simple technique to track what is going
+    // on in the interceptor
+    private addMessage(String msg) {
+        session.message = ((session.message ?: '') + " (${msg})").trim()
+    }
 }

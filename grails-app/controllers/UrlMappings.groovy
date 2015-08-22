@@ -12,10 +12,6 @@ class UrlMappings {
             parseRequest = true
         }
 
-        // BAD Mapping, will fail test. Maps to everything effectively. Not a bug
-        "/*/$controller/$action?/$id?(.$format)?"{
-            parseRequest = true
-        }
-
+        "404"(view:'/notFound')
     }
 }
