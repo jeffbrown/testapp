@@ -1,7 +1,11 @@
+import grails.util.Metadata
+
 class TestappInterceptor {
 
     def TestappInterceptor() {
-        String entrypoint = "testapp_v0.1"
+        String apiName = Metadata.current.getApplicationName()
+        String apiVersion = Metadata.current.getApplicationVersion()
+        String entrypoint = (apiName)?"${apiName}_v${apiVersion}":"v${apiVersion}"
 
         match uri: "/$entrypoint/post/**"
     }

@@ -1,11 +1,11 @@
-
+import grails.util.Metadata
 
 
 class UrlMappings {
 
     static mappings = {
-        String apiName = getGrailsApplication().config.getProperty('info.app.name')
-        String apiVersion = getGrailsApplication().config.getProperty('info.app.version')
+        String apiName = Metadata.current.getApplicationName()
+        String apiVersion = Metadata.current.getApplicationVersion()
         String entrypoint = (apiName)?"${apiName}_v${apiVersion}":"v${apiVersion}"
 
         "/$entrypoint/$controller/$action?/$id?(.$format)?"{
