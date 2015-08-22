@@ -51,17 +51,19 @@ class TestappInterceptor implements GrailsConfigurationAware {
         }
 
         addMessage 'afterInterceptor'
-        int idValue = params.int('id')
-        addMessage("id is $idValue")
-        if (idValue > 0) {
-            addMessage "model : ${model}"
-            def newId = idValue - 1
-            addMessage 'redirect'
-            redirect(controller: params.controller, action: params.action, id: newId)
-            false
-        } else {
-            render 'rendered by TestappInterceptor.after'
-            false
+        if(params.id) {
+            int idValue = params.int('id')
+            addMessage("id is $idValue")
+            if (idValue > 0 && idValue != null) {
+                addMessage "model : ${model}"
+                def newId = idValue - 1
+                addMessage 'redirect'
+                redirect(controller: params.controller, action: params.action, id: newId)
+                false
+            } else {
+                render 'rendered by TestappInterceptor.after'
+                false
+            }
         }
         false
     }

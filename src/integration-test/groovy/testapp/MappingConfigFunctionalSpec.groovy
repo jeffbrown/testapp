@@ -17,7 +17,7 @@ class MappingConfigFunctionalSpec extends GebSpec {
 
         when:
         go "/${entrypoint}/post/show/1"
-println("###TEST### : "+$().text())
+
         then:
         $().text() == 'rendered by TestappInterceptor.after'
 
@@ -42,7 +42,7 @@ println("###TEST### : "+$().text())
 
         when:
         go "/${entrypoint}/message"
-
+        println("###TEST###"+$().text()+"###TEST###")
         then:
         $().text() == 'Message: [(beforeInterceptor) (afterInterceptor) (id is 2) (model : [fname:Bob]) (redirect) (beforeInterceptor) (afterInterceptor) (id is 1) (model : [fname:Bob]) (redirect) (beforeInterceptor) (afterInterceptor) (id is 0)]'
     }
